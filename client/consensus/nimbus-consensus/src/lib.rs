@@ -25,7 +25,7 @@ pub mod collators;
 mod import_queue;
 mod manual_seal;
 
-pub use import_queue::import_queue;
+pub use import_queue::{import_queue, Verifier};
 pub use manual_seal::NimbusManualSealConsensusDataProvider;
 
 use cumulus_client_parachain_inherent::ParachainInherentDataProvider;
