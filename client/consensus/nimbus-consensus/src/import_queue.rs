@@ -41,7 +41,7 @@ use sp_runtime::{
 pub struct Verifier<Client, Block, CIDP> {
 	pub client: Arc<Client>,
 	pub create_inherent_data_providers: CIDP,
-	_marker: PhantomData<Block>,
+	pub _marker: PhantomData<Block>,
 }
 
 #[async_trait::async_trait]
