@@ -15,10 +15,12 @@ serde = { workspace = true, optional = true }
 sp-core = { workspace = true }
 sp-runtime = { workspace = true }
 sp-std = { workspace = true }
+frame-benchmarking = { workspace = true, optional = true }
 
 [features]
 default = [ "std" ]
 std = [
+	"frame-benchmarking/std",
 	"frame-support/std",
 	"frame-system/std",
 	"nimbus-primitives/std",
@@ -31,3 +33,11 @@ std = [
 ]
 
 try-runtime = [ "frame-support/try-runtime", "nimbus-primitives/try-runtime" ]
+
+runtime-benchmarks = [
+	"frame-benchmarking/runtime-benchmarks",
+	"frame-system/runtime-benchmarks",
+	"frame-support/runtime-benchmarks",
+	"sp-runtime/runtime-benchmarks",
+	"nimbus-primitives/runtime-benchmarks",
+]

@@ -86,5 +86,22 @@ pub mod pallet {
 
 			account == active_author
 		}
+
+		// get the author that is valid for this slot
+		#[cfg(feature = "runtime-benchmarks")]
+		fn get_authors(slot: &u32) -> Vec<T::AccountId> {
+			// Manta-specific Bugfix: Ensure the same author is eligible for two consecutive 6s (=relaychain block time) slots
+			// Otherwise using this pallet with `RelaychainBlockNumberProvider` as `SlotBeacon` can mess up the collator sequence
+			// when an author misses its slot e.g. C doesn't produce: A-(B)-Empty-D-(E)-A instead of A-(B)-C-(D)-E
+			// this can also be triggered on ndomly occurring relay session changes and reorgs
+			let truncated_half_slot = ((*slot) >> 1) as usize;
+
+			let active: Vec<T::AccountId> = T::PotentialAuthors::get();
+
+			// This is the core Aura logic right here.
+			let active_author = &active[truncated_half_slot % active.len()];
+
+			vec![(active_author.clone())]
+		}
 	}
 }
