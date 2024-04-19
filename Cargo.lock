@@ -6472,7 +6472,6 @@ dependencies = [
 name = "pallet-aura-style-filter"
 version = "0.9.0"
 dependencies = [
- "frame-benchmarking",
  "frame-support",
  "frame-system",
  "nimbus-primitives",
